@@ -8,7 +8,11 @@ public class MakeStars{
             line = new Scanner(stuff.nextLine());
             while(line.hasNext()){
                 System.out.print(stars(line.next()));
+                if (line.hasNext()){
+                    System.out.print(' ');
+                }
             }
+            System.out.println();
         }
         stuff.close();
     }
