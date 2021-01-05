@@ -1,18 +1,39 @@
+import java.util.Scanner;
+
 public class PigLatin {
     public static void main(String[]args){
-        System.out.println(pigLatinSimple("hi"));
-        System.out.println(pigLatinSimple("abcdefg"));
-        System.out.println(pigLatinSimple("what"));
-        System.out.println(pigLatinSimple("I"));
-        System.out.println(pigLatinSimple("mock"));     // "ockmay"
-        System.out.println(pigLatinSimple("pie"));      // "iepay
-        System.out.println(pigLatinSimple("david"));    // "avidday"
-        System.out.println(pigLatinSimple("aaron"));    // "aaronhay"
-        System.out.println(pigLatin("the"));            // "ethay"
-        System.out.println(pigLatin("check"));          // "eckchay"
-        System.out.println(pigLatin("skee"));           // "eeskay"
-        System.out.println(pigLatin("emu"));            // "emuhay"
-        System.out.println(pigLatin("grade"));          // "adegray"
+        /*
+        System.out.println(pigLatinBest("mock"));       // "ockmay"
+        System.out.println(pigLatinBest("pie"));        // "iepay
+        System.out.println(pigLatinBest("david"));      // "avidday"
+        System.out.println(pigLatinBest("aaron"));      // "aaronhay"
+        System.out.println(pigLatinBest("the"));        // "ethay"
+        System.out.println(pigLatinBest("check"));      // "eckchay"
+        System.out.println(pigLatinBest("skee"));       // "eeskay"
+        System.out.println(pigLatinBest("emu"));        // "emuhay"
+        System.out.println(pigLatinBest("grade"));      // "adegray"
+        System.out.println(pigLatinBest("*emu"));       // "*emu"
+        System.out.println(pigLatinBest("4chan"));      // "4chan"
+        System.out.println(pigLatinBest("fish!"));      // "ishfay!"
+        System.out.println(pigLatinBest("fish"));       // "ishfay"
+        System.out.println(pigLatinBest("the."));       // "ethay."
+        System.out.println(pigLatinBest("cat!"));       // "atcay!"
+        System.out.println(pigLatinBest("amazing?"));   // "amazinghay?"	
+        System.out.println(pigLatinBest("apple%"));     // "applehay%"
+        */
+        Scanner text = new Scanner(System.in);
+        Scanner line;
+        while (text.hasNextLine()){
+            line = new Scanner(text.nextLine());
+            while(line.hasNext()){
+                System.out.print(pigLatinBest(line.next()));
+                if (line.hasNext()){
+                    System.out.print(' ');
+                }
+            }
+            System.out.println();
+        }
+        text.close();
     }
     
     private static char[] vowels = {'a','e','i','o','u','A','E','I','O','U'};
@@ -65,9 +86,15 @@ pigLatin("grade") → "adegray"
             String front = "";
             String back = "";
             int i = 0;
-            for(; i < s.length() && isNotVowel(s.charAt(i)); i++){
+            for(; i < s.length()-1 && isNotVowel(s.charAt(i)); i++){
                 back+=s.charAt(i);
             }
+
+            if(i == s.length()-1 && (s.charAt(s.length()-1)=='y' || !isNotVowel(s.charAt(s.length()-1)))){
+                front+=s.charAt(s.length()-1);
+                i++;
+            }
+
             for(; i < s.length(); i++){
                 front += s.charAt(i);
             }
@@ -87,6 +114,12 @@ output should be lower case to avoid issues with capitalization
 */
 
     public static String pigLatinBest(String s){
-        return null;
+        if (!Character.isLetter(s.charAt(0))){
+            return s;
+        }
+        if(Character.isLetter(s.charAt(s.length()-1)) || Character.isDigit(s.charAt(s.length()-1))){
+            return pigLatin(s);
+        }
+        return pigLatin(s.substring(0, s.length()-1))+s.charAt(s.length()-1);
     }
 }
