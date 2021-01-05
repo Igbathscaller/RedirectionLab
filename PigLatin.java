@@ -1,6 +1,9 @@
 public class PigLatin {
     public static void main(String[]args){
-
+        System.out.println(pigLatinSimple("hi"));
+        System.out.println(pigLatinSimple("abcdefg"));
+        System.out.println(pigLatinSimple("what"));
+        System.out.println(pigLatinSimple("I"));
     }
     
     private static char[] vowels = {'a','e','i','o','u','A','E','I','O','U'};
@@ -25,11 +28,16 @@ pigLatinSimple("david") → "avidday"
 pigLatinSimple("aaron") → "aaronhay"
 */
     public static String pigLatinSimple(String s){
-        String out = "";
-        for(int i = 0; i < s.length() && isNotVowel(s.charAt(i+1)); i++){
-            out+=s.charAt(i);
+        String front = "";
+        String back = "";
+        int i = 0;
+        for(; i < s.length() && isNotVowel(s.charAt(i)); i++){
+            back+=s.charAt(i);
         }
-        return out;
+        for(; i < s.length(); i++){
+            front += s.charAt(i);
+        }
+        return front + back +"ay";
     }
 
 /*
