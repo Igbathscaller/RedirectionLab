@@ -60,19 +60,21 @@ pigLatin("grade") → "adegray"
 */
 
     public static String pigLatin(String s){
-        String front = "";
-        String back = "";
-        int i = 0;
-        for(; i < s.length() && isNotVowel(s.charAt(i)); i++){
-            back+=s.charAt(i);
-        }
-        for(; i < s.length(); i++){
-            front += s.charAt(i);
-        }
         if(isNotVowel(s.charAt(0))){
+            
+            String front = "";
+            String back = "";
+            int i = 0;
+            for(; i < s.length() && isNotVowel(s.charAt(i)); i++){
+                back+=s.charAt(i);
+            }
+            for(; i < s.length(); i++){
+                front += s.charAt(i);
+            }
             return (front + back + "ay").toLowerCase();
+        
         }
-        return (s + "hay").toLowerCase();
+            return (s + "hay").toLowerCase();
     }
 
 /*
