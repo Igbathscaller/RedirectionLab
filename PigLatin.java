@@ -4,6 +4,15 @@ public class PigLatin {
         System.out.println(pigLatinSimple("abcdefg"));
         System.out.println(pigLatinSimple("what"));
         System.out.println(pigLatinSimple("I"));
+        System.out.println(pigLatinSimple("mock"));     // "ockmay"
+        System.out.println(pigLatinSimple("pie"));      // "iepay
+        System.out.println(pigLatinSimple("david"));    // "avidday"
+        System.out.println(pigLatinSimple("aaron"));    // "aaronhay"
+        System.out.println(pigLatin("the"));            // "ethay"
+        System.out.println(pigLatin("check"));          // "eckchay"
+        System.out.println(pigLatin("skee"));           // "eeskay"
+        System.out.println(pigLatin("emu"));            // "emuhay"
+        System.out.println(pigLatin("grade"));          // "adegray"
     }
     
     private static char[] vowels = {'a','e','i','o','u','A','E','I','O','U'};
@@ -28,6 +37,29 @@ pigLatinSimple("david") → "avidday"
 pigLatinSimple("aaron") → "aaronhay"
 */
     public static String pigLatinSimple(String s){
+        if (isNotVowel(s.charAt(0))){
+            return (s.substring(1, s.length()) + s.charAt(0)+"ay").toLowerCase();
+        }
+        else{
+            return (s +"hay").toLowerCase();
+        }
+    }
+    
+
+/*
+Given a single word of at least 1 character.
+Words that start with any digraph (list included for your convenience) move the first two letters to the end, and add 'ay'
+Words that start with a,e,i,o,u add 'hay' to the end of the word
+All other words move the first letter to the end, and add 'ay' to the word.
+output should be lower case to avoid issues with capitalization
+pigLatin("the") → "ethay"
+pigLatin("check") → "eckchay"
+pigLatin("skee") → "eeskay"
+pigLatin("emu") → "emuhay"
+pigLatin("grade") → "adegray"
+*/
+
+    public static String pigLatin(String s){
         String front = "";
         String back = "";
         int i = 0;
@@ -37,19 +69,10 @@ pigLatinSimple("aaron") → "aaronhay"
         for(; i < s.length(); i++){
             front += s.charAt(i);
         }
-        return front + back +"ay";
-    }
-
-/*
-Given a single word of at least 1 character.
-Words that start with any digraph (list included for your convenience) move the first two letters to the end, and add 'ay'
-Words that start with a,e,i,o,u add 'hay' to the end of the word
-All other words move the first letter to the end, and add 'ay' to the word.
-output should be lower case to avoid issues with capitalization
-*/
-
-    public static String pigLatin(String s){
-        return null;
+        if(isNotVowel(s.charAt(0))){
+            return (front + back + "ay").toLowerCase();
+        }
+        return (s + "hay").toLowerCase();
     }
 
 /*
